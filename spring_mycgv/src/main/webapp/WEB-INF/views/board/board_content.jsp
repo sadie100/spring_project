@@ -51,10 +51,10 @@
 				</tr>
 				<tr>
 					<td colspan = "6">
-						<a href="board_update.jsp?bid=<%= bid%>&rno=<%=rno%>"><button type="button" class="btn_style2">수정</button></a> 
-						<a href="board_delete.jsp?bid=<%= bid%>&rno=<%=rno%>"><button type="button" class="btn_style2">삭제</button></a> 
-						<a href="board_list.jsp"><button type="button" class="btn_style2">리스트</button></a> 
-						<a href="http://localhost:9000/mycgv/index.jsp"><button type="button" class="btn_style2">홈으로</button></a>
+						<a href="board_update.do?bid=<%= bid%>&rno=<%=rno%>"><button type="button" class="btn_style2">수정</button></a> 
+						<a href="board_delete.do?bid=<%= bid%>&rno=<%=rno%>"><button type="button" class="btn_style2">삭제</button></a> 
+						<a href="board_list.do"><button type="button" class="btn_style2">리스트</button></a> 
+						<a href="http://localhost:9000/mycgv/index.do"><button type="button" class="btn_style2">홈으로</button></a>
 					</td> 
 				</tr>
 			</table>

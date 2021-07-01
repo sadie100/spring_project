@@ -35,8 +35,8 @@
 					<td colspan="2">
 						<button type ="button" class="btn_style" onclick="noticeFormCheck()">저장</button>
 						<button type ="reset" class="btn_style">취소</button>
-						<a href="notice_list.jsp"><button type ="button" class="btn_style">리스트</button></a>
-						<a href="http://localhost:9000/mycgv/index.jsp"><button type ="button" class="btn_style">홈으로</button></a>
+						<a href="notice_list.do"><button type ="button" class="btn_style">리스트</button></a>
+						<a href="http://localhost:9000/mycgv/admin.do"><button type ="button" class="btn_style">관리자 홈으로</button></a>
 					</td>
 				</tr>
 			</table>

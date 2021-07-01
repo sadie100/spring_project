@@ -41,7 +41,7 @@
 		
 		jQuery('#ampaginationsm').on('am.pagination.change',function(e){
 			   jQuery('.showlabelsm').text('The selected page no: '+e.page);
-	           $(location).attr('href', "http://localhost:9000/mycgv/admin/notice/notice_list.jsp?page="+e.page);         
+	           $(location).attr('href', "http://localhost:9000/mycgv/admin/notice/notice_list.do?page="+e.page);         
 	    });
 		
  	});
@@ -59,7 +59,7 @@
 			<table border=1 class="content_layout">
 				<tr>
 					<td colspan="4">
-						<a href="notice_write.jsp"><button type="button">글쓰기</button></a>
+						<a href="notice_write.do"><button type="button">글쓰기</button></a>
 					</td>
 				</tr>
 				<tr>
@@ -71,7 +71,7 @@
 				<% for(NoticeVO vo : list){ %>
 				<tr>
 					<td><%= vo.getRno() %></td>
-					<td><a href="notice_content.jsp?nid=<%=vo.getNid()%>&rno=<%=vo.getRno()%>"><%= vo.getNtitle() %></a></td>
+					<td><a href="notice_content.do?nid=<%=vo.getNid()%>&rno=<%=vo.getRno()%>"><%= vo.getNtitle() %></a></td>
 					<td><%=vo.getNhit() %></td>
 					<td><%=vo.getNdate() %></td>
 				</tr>

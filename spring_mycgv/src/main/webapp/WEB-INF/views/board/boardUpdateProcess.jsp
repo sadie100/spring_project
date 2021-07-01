@@ -16,8 +16,8 @@
   	MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
   	
   	//파일명 확인
-  	System.out.println("화면UI이름=" + multi.getOriginalFileName("bfile") );
-  	System.out.println("폴더저장이름=" + multi.getFilesystemName("bfile")  );
+  	/* System.out.println("화면UI이름=" + multi.getOriginalFileName("bfile") );
+  	System.out.println("폴더저장이름=" + multi.getFilesystemName("bfile")  ); */
   	
   	//기존 파일 그대로 유지 ---> bfile : null값이 됨
   	//새로운 파일 선택 & 파일 수정 ---> bfile: 선택된 파일명
@@ -39,8 +39,8 @@
 	 	
 	 	if(result){
 		 	//기존파일을 upload 폴더에서 삭제(DB에서 새 파일 업데이트한 후 삭제해야 함)
-		 	System.out.println(multi.getParameter("bsfile_old"));
-		 	System.out.println(savePath + "/" + multi.getParameter("bsfile_old"));
+		 	/* System.out.println(multi.getParameter("bsfile_old"));
+		 	System.out.println(savePath + "/" + multi.getParameter("bsfile_old")); */
 			
 		 	String old_file_path = savePath + "/" + multi.getParameter("bsfile_old");
 		 	File old_file = new File(old_file_path);

@@ -23,8 +23,8 @@
 		<section class="admin">
 			<h1 class="title">관리자 페이지</h1>
 			<div class="content_layout">
-				<a href="member/member_list.jsp"><div>회원 관리</div></a>
-				<a href="notice/notice_list.jsp"><div>공지사항 관리</div></a>
+				<a href="member/member_list.do"><div>회원 관리</div></a>
+				<a href="notice/notice_list.do"><div>공지사항 관리</div></a>
 			</div>
 		</section>
 		</div>

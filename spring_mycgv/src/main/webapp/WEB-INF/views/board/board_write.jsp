@@ -36,7 +36,7 @@
 						<button type ="button" class="btn_style2" onclick="boardFormCheck()">저장</button>
 						<button type ="reset" class="btn_style2">취소</button>
 						<a href="board_list.jsp"><button type ="button" class="btn_style">리스트</button></a>
-						<a href="http://localhost:9000/mycgv/index.jsp"><button type ="button" class="btn_style">홈으로</button></a>
+						<a href="http://localhost:9000/mycgv/index.do"><button type ="button" class="btn_style">홈으로</button></a>
 					</td>
 				</tr>
 			</table>

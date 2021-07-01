@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
    <%@ page import="com.mycgv.dao.MemberDAO, com.mycgv.vo.*, java.util.*" %>
     <% 
-    SessionVO svo = (SessionVO)session.getAttribute("svo");
-	if(svo !=null){
+   /*  SessionVO svo = (SessionVO)session.getAttribute("svo");
+	if(svo !=null){ */
     
     String rpage = request.getParameter("page");	//최초 호출시에는 rpage=null
     MemberDAO dao = new MemberDAO();	
@@ -94,7 +94,7 @@
 				<% for(MemberVO vo : list){		%>
 				<tr>
 					<td><%= vo.getRno() %></td>
-					<td><a href="member_content.jsp?id=<%=vo.getId() %>&rno=<%=vo.getRno()%>"><%=vo.getId() %></a></td>
+					<td><a href="member_content.do?id=<%=vo.getId() %>&rno=<%=vo.getRno()%>"><%=vo.getId() %></a></td>
 					<td><%=vo.getName() %></td>
 					<td><%= vo.getHp() %></td>
 					<td><%= vo.getGender() %></td>
@@ -121,9 +121,9 @@
 </body>
 </html>
 
-<% }else{ %>
+<%-- <% }else{ %>
 	<script>
 		window.alert("로그인 후 사용 가능합니다.");
 		location.href("http://localhost:9000/mycgv/login/login.jsp");
 	</script>
-<% } %>
+<% } %> --%>

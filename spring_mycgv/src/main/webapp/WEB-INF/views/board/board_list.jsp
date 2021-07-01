@@ -6,8 +6,7 @@ String rpage = request.getParameter("page");	//최초 호출시에는 rpage=null
 BoardDAO dao = new BoardDAO();	
 Commons commons = new Commons();
 HashMap map = commons.getPage(rpage, dao, "board");
-System.out.println(map.get("start"));
-System.out.println(map.get("end"));
+
 int start = (int)map.get("start");
 int end = (int)map.get("end");
 ArrayList<BoardVO> list = dao.getList(start, end);
@@ -94,7 +93,7 @@ if(rpage != null){
 			<table border=1 class="content_layout">
 				<tr>
 					<td colspan="4">
-						<a href="board_write.jsp"><button type="button">글쓰기</button></a>
+						<a href="board_write.do"><button type="button">글쓰기</button></a>
 					</td>
 				</tr>
 				<tr>
@@ -106,7 +105,7 @@ if(rpage != null){
 				<% for(BoardVO vo: list){ %>
 				<tr>
 					<td><%=vo.getRno() %></td>
-					<td><a href="board_content.jsp?bid=<%=vo.getBid()%>&rno=<%=vo.getRno()%>"><%=vo.getBtitle() %></a></td>
+					<td><a href="board_content.do?bid=<%=vo.getBid()%>&rno=<%=vo.getRno()%>"><%=vo.getBtitle() %></a></td>
 					<td><%=vo.getBhit() %></td>
 					<td><%=vo.getBdate() %></td>
 				</tr>

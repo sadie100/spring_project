@@ -23,7 +23,7 @@
 	NoticeDAO dao = new NoticeDAO();
 	boolean result = dao.getInsertResult(vo);
 	if(result){
-		response.sendRedirect("notice_list.jsp");
+		response.sendRedirect("notice_list.do");
 	}
 	
 %>

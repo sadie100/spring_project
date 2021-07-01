@@ -30,8 +30,8 @@ NoticeVO vo = dao.getContent(nid);
 				<img src="../../images/img_1.jpg">
 				<div>
 					<a href="noticeDeleteProcess.jsp?nid=<%=nid%>"><button type="button" class="btn_style2">삭제 완료</button></a>
-					<a href="notice_content.jsp?nid=<%=nid%>&rno=<%=rno%>"><button type ="button" class="btn_style2">이전 페이지</button></a>
-					<a href="notice_list.jsp"><button type ="button" class="btn_style2">리스트</button></a>
+					<a href="notice_content.do?nid=<%=nid%>&rno=<%=rno%>"><button type ="button" class="btn_style2">이전 페이지</button></a>
+					<a href="notice_list.do"><button type ="button" class="btn_style2">리스트</button></a>
 				</div>
 			</div>
 		</section>

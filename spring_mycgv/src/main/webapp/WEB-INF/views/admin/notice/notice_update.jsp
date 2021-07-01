@@ -70,8 +70,8 @@
 						<td colspan="2">
 							<button type ="submit" class="btn_style2">수정 완료</button>
 							<button type ="reset" class="btn_style2">취소</button>
-							<a href="notice_content.jsp?nid=<%=nid%>&rno=<%=rno%>"><button type ="button" class="btn_style2">이전 페이지</button></a>
-							<a href="notice_list.jsp"><button type ="button" class="btn_style2">리스트</button></a>
+							<a href="notice_content.do?nid=<%=nid%>&rno=<%=rno%>"><button type ="button" class="btn_style2">이전 페이지</button></a>
+							<a href="notice_list.do"><button type ="button" class="btn_style2">리스트</button></a>
 						</td>
 					</tr>
 				</table>

@@ -48,10 +48,10 @@
 				</tr>
 				<tr>
 					<td colspan = "6">
-						<a href="notice_update.jsp?nid=<%=nid%>&rno=<%=rno%>"><button type="button" class="btn_style2">수정</button></a> 
-						<a href="notice_delete.jsp?nid=<%=nid%>&rno=<%=rno%>"><button type="button" class="btn_style2">삭제</button></a> 
-						<a href="notice_list.jsp"><button type="button" class="btn_style2">리스트</button></a> 
-						<a href="http://localhost:9000/mycgv/index.jsp"><button type="button" class="btn_style2">홈으로</button></a>
+						<a href="notice_update.do?nid=<%=nid%>&rno=<%=rno%>"><button type="button" class="btn_style2">수정</button></a> 
+						<a href="notice_delete.do?nid=<%=nid%>&rno=<%=rno%>"><button type="button" class="btn_style2">삭제</button></a> 
+						<a href="notice_list.do"><button type="button" class="btn_style2">리스트</button></a> 
+						<a href="http://localhost:9000/mycgv/admin.do"><button type="button" class="btn_style2">관리자 홈으로</button></a>
 					</td> 
 				</tr>
 			</table>

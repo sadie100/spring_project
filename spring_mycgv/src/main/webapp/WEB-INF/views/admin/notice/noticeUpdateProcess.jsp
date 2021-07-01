@@ -55,6 +55,6 @@
 	
 	
 	if(result){
-		response.sendRedirect("notice_list.jsp");
+		response.sendRedirect("notice_list.do");
 	}
 %>

@@ -76,8 +76,8 @@ $(document).ready(function(){
 						<td colspan="2">
 							<button type ="button" class="btn_style2" id="btnUpdate">수정 완료</button>
 							<button type ="reset" class="btn_style2">취소</button>
-							<a href="board_content.jsp?bid=<%=bid%>&rno=<%=rno%>"><button type ="button" class="btn_style2">이전 페이지</button></a>
-							<a href="board_list.jsp"><button type ="button" class="btn_style2">리스트</button></a>
+							<a href="board_content.do?bid=<%=bid%>&rno=<%=rno%>"><button type ="button" class="btn_style2">이전 페이지</button></a>
+							<a href="board_list.do"><button type ="button" class="btn_style2">리스트</button></a>
 						</td>
 					</tr>
 				</table>

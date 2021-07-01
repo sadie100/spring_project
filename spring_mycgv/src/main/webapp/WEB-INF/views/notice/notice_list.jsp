@@ -33,7 +33,7 @@
 				<% for(NoticeVO vo:list){ %>
 				<tr>
 					<td><%=vo.getRno() %></td>
-					<td><a href="notice_content.jsp?nid=<%=vo.getNid() %>&rno=<%=vo.getRno() %>"><%=vo.getNtitle() %></a></td>
+					<td><a href="notice_content.do?nid=<%=vo.getNid() %>&rno=<%=vo.getRno() %>"><%=vo.getNtitle() %></a></td>
 					<td><%=vo.getNhit() %></td>
 					<td><%=vo.getNdate() %></td>
 				</tr>

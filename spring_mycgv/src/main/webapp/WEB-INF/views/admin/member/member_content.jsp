@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
     <%@ page import="com.mycgv.dao.*,com.mycgv.vo.*" %>
     <%
-    SessionVO svo = (SessionVO)session.getAttribute("svo");
-	if(svo !=null){
+    /* SessionVO svo = (SessionVO)session.getAttribute("svo");
+	if(svo !=null){ */
 		
     	String id = request.getParameter("id");
     	String rno = request.getParameter("rno");
@@ -56,8 +56,8 @@
 				</tr>
 				<tr>
 					<td colspan = "8">
-						<a href="member_list.jsp"><button type="button" class="btn_style2">리스트</button></a> 
-						<a href="http://localhost:9000/mycgv/admin/admin.jsp"><button type="button" class="btn_style2">관리자 홈</button></a>
+						<a href="member_list.do"><button type="button" class="btn_style2">리스트</button></a> 
+						<a href="http://localhost:9000/mycgv/admin.do"><button type="button" class="btn_style2">관리자 홈</button></a>
 					</td> 
 				</tr>
 			</table>
@@ -70,9 +70,9 @@
 </body>
 </html>
 
-<% }else{ %>
+<%-- <% }else{ %>
 	<script>
 		window.alert("로그인 후 사용 가능합니다.");
 		location.href("http://localhost:9000/mycgv/login/login.jsp");
 	</script>
-<% } %>
+<% } %> --%>

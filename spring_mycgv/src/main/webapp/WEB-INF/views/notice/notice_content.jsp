@@ -46,8 +46,8 @@
 				</tr>
 				<tr>
 					<td colspan = "6">
-						<a href="notice_list.jsp"><button type="button" class="btn_style2">리스트</button></a> 
-						<a href="http://localhost:9000/mycgv/index.jsp"><button type="button" class="btn_style2">홈으로</button></a>
+						<a href="notice_list.do"><button type="button" class="btn_style2">리스트</button></a> 
+						<a href="http://localhost:9000/mycgv/index.do"><button type="button" class="btn_style2">홈으로</button></a>
 					</td> 
 				</tr>
 			</table>
