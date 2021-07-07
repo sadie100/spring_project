@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.mycgv.vo.*, com.mycgv.dao.*, java.util.*" %>
-  <%
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ 
+ <%--  <%
   String bid = request.getParameter("bid");
   String rno = request.getParameter("rno");
   
@@ -10,7 +11,7 @@
   if(vo!=null) dao.getUpdateHit(bid);
   String content = vo.getBcontent().replace("\r\n","<br>");
   
-  %>
+  %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,29 +32,29 @@
 			<table class="content_layout">
 				<tr>
 					<th>번호</th>
-					<td><%= rno %></td>
+					<td>${rno }</td>
 					<th>날짜</th>
-					<td><%= vo.getBdate() %></td>
+					<td>${vo.bdate }</td>
 					<th>조회수></th>
-					<td><%= vo.getBhit() %></td>
+					<td>${vo.bhit }</td>
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td colspan="5"><%=vo.getBtitle() %></td>
+					<td colspan="5">${vo.btitle }</td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td colspan="5"><%= content %><br><br><br>
-					<%if(vo.getBfile()!=null){ %>
-					<img src="http://localhost:9000/mycgv/upload/<%=vo.getBsfile() %>" width="400" height="200">
-					<%} %>
+					<td colspan="5">${vo.bcontent }<br><br><br>
+					<c:if test="${vo.bsfile ne null }">
+						<img src="http://localhost:9000/mycgv/upload/${vo.bsfile }" width="400" height="200">
+					</c:if>
 					</td>
 				</tr>
 				<tr>
 					<td colspan = "6">
-						<a href="board_update.do?bid=<%= bid%>&rno=<%=rno%>"><button type="button" class="btn_style2">수정</button></a> 
-						<a href="board_delete.do?bid=<%= bid%>&rno=<%=rno%>"><button type="button" class="btn_style2">삭제</button></a> 
-						<a href="board_list.do"><button type="button" class="btn_style2">리스트</button></a> 
+						<a href="board_update.do?bid=${vo.bid }&rno=${rno}"><button type="button" class="btn_style2">수정</button></a> 
+						<a href="board_delete.do?bid=${vo.bid }&rno=${rno}"><button type="button" class="btn_style2">삭제</button></a> 
+						<a href="board_list.do"><button type="button" class="btn_style2">리스트</button></a>
 						<a href="http://localhost:9000/mycgv/index.do"><button type="button" class="btn_style2">홈으로</button></a>
 					</td> 
 				</tr>

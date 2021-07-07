@@ -17,7 +17,7 @@
 	<div class="content">
 		<section class="board_write">
 			<h1 class="title">관리자 - 공지사항</h1>
-			<form name="notice_write" action="noticeWriteProcess.jsp" method="post" enctype="multipart/form-data">
+			<form name="notice_write" action="notice_write_proc.do" method="post" enctype="multipart/form-data">
 			<table class="content_layout">
 				<tr>
 					<th>제목</th>
@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<th>파일</th>
-					<td><input type="file" name="nfile"></td>
+					<td><input type="file" name="file1"></td>
 				</tr>
 				<tr>
 					<td colspan="2">

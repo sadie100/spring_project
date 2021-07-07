@@ -1,18 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import="com.mycgv.dao.NoticeDAO, com.mycgv.vo.NoticeVO, java.util.*" %>
-   <%
-   	NoticeDAO dao = new NoticeDAO();
-    ArrayList<NoticeVO> list = dao.getList();
-   	
-   %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://localhost:9000/mycgv/css/mycgv.css">
-
+<link rel="stylesheet" href="http://localhost:9000/mycgv/css/am-pagination.css">
+<script src="http://localhost:9000/mycgv/js/jquery-3.6.0.min.js"></script>
+<script src="http://localhost:9000/mycgv/js/am-pagination.js"></script>
+<script>
+	$(document).ready(function(){
+		
+		var pager = jQuery('#ampaginationsm').pagination({
+		
+		    maxSize: 7,	    		// max page size
+		    totals: ${dbCount},	// total pages	
+		    page: ${rpage},		// initial page		
+		    pageSize: ${pageSize},			// max number items per page
+		
+		    // custom labels		
+		    lastText: '&raquo;&raquo;', 		
+		    firstText: '&laquo;&laquo;',		
+		    prevText: '&laquo;',		
+		    nextText: '&raquo;',
+				     
+		    btnSize:'sm'	// 'sm'  or 'lg'		
+		});
+		
+		jQuery('#ampaginationsm').on('am.pagination.change',function(e){
+			   jQuery('.showlabelsm').text('The selected page no: '+e.page);
+	           $(location).attr('href', "http://localhost:9000/mycgv/notice_list.do?rpage="+e.page);         
+	    });
+		 
+ 	});
+</script>
 </head>
 <body>
 	<!-- header -->
@@ -30,16 +54,16 @@
 					<th>조회수</th>
 					<th>등록일</th>
 				</tr>
-				<% for(NoticeVO vo:list){ %>
+				<c:forEach var="vo" items="${list }">
 				<tr>
-					<td><%=vo.getRno() %></td>
-					<td><a href="notice_content.do?nid=<%=vo.getNid() %>&rno=<%=vo.getRno() %>"><%=vo.getNtitle() %></a></td>
-					<td><%=vo.getNhit() %></td>
-					<td><%=vo.getNdate() %></td>
+					<td>${vo.rno}</td>
+					<td><a href="notice_content.do?nid=${vo.nid }&rno=${vo.rno}">${vo.ntitle }</a></td>
+					<td>${vo.nhit }</td>
+ 					<td>${vo.ndate }</td>
 				</tr>
-				<% } %>
+				</c:forEach>
 				<tr>
-					<td colspan="4"><< 1   2   3   4   5  >></td>
+					<td colspan=4><div id="ampaginationsm"></div></td>
 				</tr>
 			</table>
 		</section>

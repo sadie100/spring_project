@@ -27,10 +27,6 @@
  	vo.setBfile(multi.getOriginalFileName("bfile"));
  	vo.setBsfile(multi.getFilesystemName("bfile"));
  	
- 	System.out.println(vo.getBtitle());
- 	System.out.println(vo.getBcontent());
- 	System.out.println(vo.getBfile());
- 	System.out.println(vo.getBsfile());
  	
  	
  	BoardDAO dao = new BoardDAO();

@@ -1,15 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="com.mycgv.dao.*,com.mycgv.vo.*" %>
-    <%
-    /* SessionVO svo = (SessionVO)session.getAttribute("svo");
-	if(svo !=null){ */
-		
-    	String id = request.getParameter("id");
-    	String rno = request.getParameter("rno");
-    	MemberDAO dao = new MemberDAO();
-    	MemberVO vo = dao.getContent(id);
-    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,29 +20,30 @@
 			<table class="content_layout">
 				<tr>
 					<th>번호</th>
-					<td><%= rno %></td>
+					<td>${rno }</td>
 					<th>아이디</th>
-					<td><%= vo.getId() %></td>
+					<td>${vo.id }</td>
 					<th>성명</th>
-					<td><%= vo.getName() %></td>
+					<td>${vo.name }</td>
 					<th>성별</th>
-					<td><%= vo.getGender() %></td>
+					<td>${vo.gender }</td>
 				</tr>
 				<tr>
 					<th>이메일주소</th>
-					<td colspan="7"><%=vo.getEmail() %></td>
+					<td colspan="7">${vo.email }</td>
+					
 				</tr>
 				<tr>
 					<th>핸드폰번호</th>
-					<td colspan="7"><%=vo.getHp() %></td>
+					<td colspan="7">${vo.hp }</td>
 				</tr>
 				<tr>
 					<th>취미</th>
-					<td colspan="7"><%=vo.getHlist() %></td>
+					<td colspan="7">${vo.hlist }</td>
 				</tr>
 				<tr>
 					<th>자기소개</th>
-					<td colspan="7"><%=vo.getIntro() %></td>
+					<td colspan="7">${vo.intro }</td>
 				</tr>
 				<tr>
 					<td colspan = "8">

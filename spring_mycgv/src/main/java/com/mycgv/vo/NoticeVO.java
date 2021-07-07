@@ -1,9 +1,19 @@
 package com.mycgv.vo;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 public class NoticeVO {
 	int rno, nhit;
 	String nid, ntitle, ncontent, nfile, nsfile, ndate;
+	CommonsMultipartFile file1;
 	
+	
+	public CommonsMultipartFile getFile1() {
+		return file1;
+	}
+	public void setFile1(CommonsMultipartFile file1) {
+		this.file1 = file1;
+	}
 	public int getRno() {
 		return rno;
 	}

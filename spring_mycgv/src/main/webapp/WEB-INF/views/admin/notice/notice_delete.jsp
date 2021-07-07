@@ -1,13 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="com.mycgv.dao.NoticeDAO, com.mycgv.vo.NoticeVO, java.util.*" %>
-<%
-String nid = request.getParameter("nid");
-String rno = request.getParameter("rno");
-
-NoticeDAO dao = new NoticeDAO();
-NoticeVO vo = dao.getContent(nid);
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,8 +21,8 @@ NoticeVO vo = dao.getContent(nid);
 				<h3>정말로 삭제하시겠습니까?</h3>
 				<img src="../../images/img_1.jpg">
 				<div>
-					<a href="noticeDeleteProcess.jsp?nid=<%=nid%>"><button type="button" class="btn_style2">삭제 완료</button></a>
-					<a href="notice_content.do?nid=<%=nid%>&rno=<%=rno%>"><button type ="button" class="btn_style2">이전 페이지</button></a>
+					<a href="notice_delete_proc.do?nid=${nid }"><button type="button" class="btn_style2">삭제 완료</button></a>
+					<a href="notice_content.do?nid=${nid }&rno=${rno}"><button type ="button" class="btn_style2">이전 페이지</button></a>
 					<a href="notice_list.do"><button type ="button" class="btn_style2">리스트</button></a>
 				</div>
 			</div>

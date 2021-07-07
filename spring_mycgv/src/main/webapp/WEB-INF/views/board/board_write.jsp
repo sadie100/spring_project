@@ -17,7 +17,7 @@
 	<div class="content">
 		<section class="board_write">
 			<h1 class="title">게시판</h1>
-			<form name="board_write" action="boardWriteProcess.jsp" method="post" enctype="multipart/form-data">
+			<form name="board_write" action="board_write_proc.do" method="post" enctype="multipart/form-data">
 			<table class="content_layout">
 				<tr>
 					<th>제목</th>
@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<th>파일</th>
-					<td><input type="file" name="bfile"></td>
+					<td><input type="file" name="file1"></td>
 				</tr>
 				<tr>
 					<td colspan="2">

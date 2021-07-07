@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@ page import="com.mycgv.vo.*, com.mycgv.dao.*, java.util.*" %>
-  <%
-  String bid = request.getParameter("bid");
-  String rno = request.getParameter("rno");
-  
-  BoardDAO dao = new BoardDAO();
-  BoardVO vo = dao.getContent(bid);
-  
-  %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,10 +24,10 @@
 				<img src="http://localhost:9000/mycgv/images/img_1.jpg">
 				<div>
 				<!-- <form name="board_delete_form" action = "boardDeleteProcess.jsp" method = "get">
-					<input type="hidden" name="bid" value="<%=bid%>">
+					<input type="hidden" name="bid" value="${bid}">
 				</form>	 -->
-					<a href="boardDeleteProcess.jsp?bid=<%=bid%>"><button type="button" class="btn_style2">삭제 완료</button></a>
-					<a href="board_content.do?bid=<%=bid%>&rno=<%=rno%>"><button type ="button" class="btn_style2">이전 페이지</button></a>
+					<a href="board_delete_proc.do?bid=${bid }"><button type="button" class="btn_style2">삭제 완료</button></a>
+					<a href="board_content.do?bid=${bid }&rno=${rno}"><button type ="button" class="btn_style2">이전 페이지</button></a>
 					<a href="board_list.do"><button type ="button" class="btn_style2">리스트</button></a>
 				</div>
 			</div>

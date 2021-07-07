@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.mycgv.dao.NoticeDAO, com.mycgv.vo.NoticeVO, java.util.*" %>
-<%
-	String nid = request.getParameter("nid");
-	String rno = request.getParameter("rno");
-	
-	NoticeDAO dao = new NoticeDAO();
-	NoticeVO vo = dao.getContent(nid);
-	
-	if(vo!=null) dao.getUpdateHit(nid);
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,19 +21,19 @@
 			<table class="content_layout">
 				<tr>
 					<th>번호</th>
-					<td><%=rno %></td>
+					<td>${rno }</td>
 					<th>날짜</th>
-					<td><%= vo.getNdate() %></td>
+					<td>${vo.ndate }</td>
 					<th>조회수></th>
-					<td><%= vo.getNhit() %></td>
+					<td>${vo.nhit }</td>
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td colspan="5"><%=vo.getNtitle() %></td>
+					<td colspan="5">${vo.ntitle }</td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td colspan="5"><%=vo.getNcontent()%><br><br><br></td>
+					<td colspan="5">${content }<br><br><br></td>
 				</tr>
 				<tr>
 					<td colspan = "6">

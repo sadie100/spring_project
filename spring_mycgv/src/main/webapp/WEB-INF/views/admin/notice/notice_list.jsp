@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="com.mycgv.dao.NoticeDAO, com.mycgv.vo.NoticeVO, java.util.*, com.mycgv.comms.*" %>
-    <%
-    String rpage = request.getParameter("page");	//최초 호출시에는 rpage=null
-    NoticeDAO dao = new NoticeDAO();	
-    Commons commons = new Commons();
-    HashMap map = commons.getPage(rpage, dao, "notice");
-    int start = (int)map.get("start");
-    int end = (int)map.get("end");
-    ArrayList<NoticeVO> list = dao.getList(start, end);
-    %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -24,11 +15,11 @@
 	$(document).ready(function(){
 		
 		var pager = jQuery('#ampaginationsm').pagination({
-		
+			
 		    maxSize: 7,	    		// max page size
-		    totals: <%=map.get("dbCount")%>,	// total pages	
-		    page: <%=map.get("rpage")%>,		// initial page		
-		    pageSize: <%=map.get("pageSize")%>,			// max number items per page
+		    totals: ${dbCount},	// total pages	
+		    page: ${rpage},		// initial page		
+		    pageSize: ${pageSize},			// max number items per page
 		
 		    // custom labels		
 		    lastText: '&raquo;&raquo;', 		
@@ -41,7 +32,7 @@
 		
 		jQuery('#ampaginationsm').on('am.pagination.change',function(e){
 			   jQuery('.showlabelsm').text('The selected page no: '+e.page);
-	           $(location).attr('href', "http://localhost:9000/mycgv/admin/notice/notice_list.do?page="+e.page);         
+	           $(location).attr('href', "http://localhost:9000/mycgv/notice/notice_list.do?rpage="+e.page);         
 	    });
 		
  	});
@@ -68,14 +59,14 @@
 					<th>조회수</th>
 					<th>등록일</th>
 				</tr>
-				<% for(NoticeVO vo : list){ %>
+				<c:forEach var="vo" items ="${list }">
 				<tr>
-					<td><%= vo.getRno() %></td>
-					<td><a href="notice_content.do?nid=<%=vo.getNid()%>&rno=<%=vo.getRno()%>"><%= vo.getNtitle() %></a></td>
-					<td><%=vo.getNhit() %></td>
-					<td><%=vo.getNdate() %></td>
+					<td>${vo.rno }</td>
+					<td><a href="notice_content.do?nid=${vo.nid }&rno=${vo.rno}">${vo.ntitle }</a></td>
+					<td>${vo.nhit }</td>
+					<td>${vo.ndate }</td>
 				</tr>
-				<% } %>
+				</c:forEach>
 				<tr>
 					<td colspan=4><div id="ampaginationsm"></div></td>
 				</tr>

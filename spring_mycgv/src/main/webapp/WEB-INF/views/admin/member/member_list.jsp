@@ -1,41 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ page import="com.mycgv.dao.MemberDAO, com.mycgv.vo.*, java.util.*" %>
-    <% 
-   /*  SessionVO svo = (SessionVO)session.getAttribute("svo");
-	if(svo !=null){ */
-    
-    String rpage = request.getParameter("page");	//최초 호출시에는 rpage=null
-    MemberDAO dao = new MemberDAO();	
-
-    //페이징 처리 - startCount, endCount 구하기
-    int startCount = 0;
-    int endCount = 0;
-    int pageSize = 3;	//한페이지당 게시물 수
-    int reqPage = 1;	//요청페이지	
-    int pageCount = 1;	//전체 페이지 수
-    int dbCount = dao.execTotalCount();	//DB에서 가져온 전체 행수 : 5 
-
-    //총 페이지 수 계산. pagecount : 현재 페이지
-    if(dbCount % pageSize == 0){
-    	pageCount = dbCount/pageSize;
-    }else{
-    	pageCount = dbCount/pageSize+1;
-    }
-
-    //요청 페이지 계산
-    if(rpage != null){
-    	reqPage = Integer.parseInt(rpage);
-    	startCount = (reqPage-1) * pageSize+1;
-    	endCount = reqPage *pageSize;
-    }else{
-    	startCount = reqPage;
-    	endCount = pageSize;
-    }
-
-    ArrayList<MemberVO> list = dao.getList(startCount, endCount);
-
-    %>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,9 +16,9 @@
 		var pager = jQuery('#ampaginationsm').pagination({
 		
 		    maxSize: 7,	    		// max page size
-		    totals: <%=dbCount%>,	// total pages	
-		    page: <%=rpage%>,		// initial page		
-		    pageSize: <%= pageSize %>,			// max number items per page
+		    totals: ${dbCount},	// total pages	
+		    page: ${rpage},		// initial page		
+		    pageSize: ${pageSize},			// max number items per page
 		
 		    // custom labels		
 		    lastText: '&raquo;&raquo;', 		
@@ -66,7 +31,7 @@
 		
 		jQuery('#ampaginationsm').on('am.pagination.change',function(e){
 			   jQuery('.showlabelsm').text('The selected page no: '+e.page);
-	           $(location).attr('href', "http://localhost:9000/mycgv/admin/member/member_list.jsp?page="+e.page);         
+	           $(location).attr('href', "http://localhost:9000/mycgv/member/member_list.do?rpage="+e.page);         
 	    });
 		
  	});
@@ -91,23 +56,23 @@
 					<th>가입일자</th>
 					<th>회원탈퇴</th>
 				</tr>
-				<% for(MemberVO vo : list){		%>
+				<c:forEach var="vo" items="${list }">
 				<tr>
-					<td><%= vo.getRno() %></td>
-					<td><a href="member_content.do?id=<%=vo.getId() %>&rno=<%=vo.getRno()%>"><%=vo.getId() %></a></td>
-					<td><%=vo.getName() %></td>
-					<td><%= vo.getHp() %></td>
-					<td><%= vo.getGender() %></td>
-					<td><%= vo.getMdate() %></td>
+					<td>${vo.rno }</td>
+					<td><a href="member_content.do?id=${vo.id }&rno=${vo.rno}">${vo.id }</a></td>
+					<td>${vo.name }</td>
+					<td>${vo.hp }</td>
+					<td>${vo.gender }</td>
+					<td>${vo.mdate }</td>
 					<td>
-						<% if(vo.getChoice() == 0){ %>
+						<%-- <% if(vo.getChoice() == 0){ %> --%>
 						<button type="button" disabled>신청</button>
-						<% }else{ %>
-						<button type="button" >신청</button>
-						<% } %>
+						<%-- <% }else{ %> --%>
+						<!-- <button type="button" >신청</button> -->
+						<%-- <% } %> --%>
 					</td>
 				</tr>
-				<% } %>
+				</c:forEach>
 				<tr>
 						<td colspan=7><div id="ampaginationsm"></div></td>
 				</tr>
