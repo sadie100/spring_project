@@ -3,24 +3,52 @@ package com.myspring.mycgv;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mycgv.comms.Commons;
-import com.mycgv.dao.BoardDAO;
-import com.mycgv.dao.MemberDAO;
-import com.mycgv.dao.NoticeDAO;
 import com.mycgv.vo.MemberVO;
 import com.mycgv.vo.NoticeVO;
+import com.myspring.service.BoardNoticeService;
+import com.myspring.service.MemberService;
 
 @Controller
 public class AdminController {
+	
+	@Autowired
+	private MemberService memberService;
+	
+	@Autowired
+	private BoardNoticeService noticeService;
+	
+	/*
+	 *   notice/notice_select_delete_proc.do  --->  관리자 > 공지사항 리스트 선택 삭제 처리
+	 */
+	@RequestMapping(value="notice/notice_select_delete_proc.do", method=RequestMethod.GET)
+	public ModelAndView admin_notice_select_delete_proc(String chkList){
+		ModelAndView mv = new ModelAndView();
+		
+		StringTokenizer st = new StringTokenizer(chkList, ",");	//String 객체를 특정 값을 기준으로 잘라주는 역할(여기선 ,)
+		String[] stArray = new String[st.countTokens()];
+		for(int i=0; i<stArray.length;i++) {
+			stArray[i] = st.nextToken();
+		}
+		
+		int result = noticeService.getSelectDelete(stArray);
+		if(result!=0) {
+			mv.setViewName("redirect:/notice/notice_list.do");
+		}
+		
+		return mv;
+	}
 	
 	/*
 	 *   notice/notice_write_proc.do  --->  관리자 > 공지사항 글 작성 화면
@@ -48,8 +76,8 @@ public class AdminController {
 		}
 			
 		
-			NoticeDAO dao = new NoticeDAO();
-			boolean result = dao.getInsertResult(vo);
+			//NoticeDAO dao = new NoticeDAO();
+			boolean result = noticeService.getInsertResult(vo);
 			
 			
 			if(result){
@@ -78,7 +106,7 @@ public class AdminController {
 	public ModelAndView admin_notice_update_proc(NoticeVO vo, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
-		NoticeDAO dao = new NoticeDAO();
+		//NoticeDAO dao = new NoticeDAO();
 		
 		if(vo.getFile1().getSize()!=0) {	//새로운 파일 선택
 			//1. 파일저장 위치
@@ -93,8 +121,8 @@ public class AdminController {
 			System.out.println("bsfile--->"+vo.getNsfile());
 			
 			//3. DB연동 --> 파일이 있는 경우 update
-			String old_nsfile = dao.getNsfile(vo.getNid());
-			boolean result =  dao.getUpdateResult(vo);
+			String old_nsfile = noticeService.getFile(vo.getNid());
+			boolean result =  noticeService.getUpdateResult(vo);
 			
 			if(result) {
 				//4. DB 연동 성공 ---> upload 폴더에 저장
@@ -110,7 +138,7 @@ public class AdminController {
 			
 		}else {	//새로운 파일 선택 X
 			//DB연동 --> 파일이 없는 경우 update
-			boolean result = dao.getUpdateResultNofile(vo);
+			boolean result = noticeService.getUpdateResultNofile(vo);
 		}
 		
 		mv.setViewName("redirect:/notice/notice_list.do");
@@ -122,8 +150,8 @@ public class AdminController {
 	@RequestMapping(value="notice/notice_update.do", method = RequestMethod.GET)
 	public ModelAndView admin_notice_update(String nid, String rno) {
 		ModelAndView mv = new ModelAndView();
-		NoticeDAO dao = new NoticeDAO();
-		NoticeVO vo = dao.getContent(nid);
+		//NoticeDAO dao = new NoticeDAO();
+		NoticeVO vo = (NoticeVO)noticeService.getContent(nid);
 		
 		mv.setViewName("admin/notice/notice_update");
 		mv.addObject("vo",vo);
@@ -137,9 +165,9 @@ public class AdminController {
 	@RequestMapping(value="notice/notice_delete_proc.do", method = RequestMethod.GET)
 	public ModelAndView admin_notice_delete_proc(String nid, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		NoticeDAO dao = new NoticeDAO();
-		String old_nsfile = dao.getNsfile(nid);
-		boolean result = dao.getDeleteResult(nid);
+		//NoticeDAO dao = new NoticeDAO();
+		String old_nsfile = noticeService.getFile(nid);
+		boolean result = noticeService.getDeleteResult(nid);
 		
 		if(result){
 			mv.setViewName("redirect:/notice/notice_list.do");
@@ -172,8 +200,8 @@ public class AdminController {
 	@RequestMapping(value="notice/notice_content.do", method = RequestMethod.GET)
 	public ModelAndView admin_notice_content(String nid, String rno) {
 		ModelAndView mv = new ModelAndView();
-		NoticeDAO dao = new NoticeDAO();
-		NoticeVO vo = dao.getContent(nid);
+		//NoticeDAO dao = new NoticeDAO();
+		NoticeVO vo = (NoticeVO)noticeService.getContent(nid);
 		String content = vo.getNcontent().replace("\r\n", "<br>");
 				
 		mv.setViewName("admin/notice/notice_content");
@@ -189,8 +217,8 @@ public class AdminController {
 	@RequestMapping(value="member/member_content.do", method=RequestMethod.GET)
 	public ModelAndView admin_member_content(String id, String rno) {
 		ModelAndView mv = new ModelAndView();
-		MemberDAO dao = new MemberDAO();
-    	MemberVO vo = dao.getContent(id);
+		//MemberDAO dao = new MemberDAO();
+    	MemberVO vo = memberService.getContent(id);
     	
     	mv.setViewName("admin/member/member_content");
     	mv.addObject("vo",vo);
@@ -206,12 +234,12 @@ public class AdminController {
 	@RequestMapping(value="member/member_list.do", method=RequestMethod.GET)
 	public ModelAndView admin_member_list(String rpage) {
 		ModelAndView mv = new ModelAndView();
-	    MemberDAO dao = new MemberDAO();	
+	    //MemberDAO dao = new MemberDAO();	
 	    Commons com = new Commons();
-	    HashMap<String,Integer> map = com.getPage(rpage, dao, "member");
+	    HashMap<String,Integer> map = com.getPage(rpage, memberService, "member");
 	    int startCount = (Integer)map.get("start");
 	    int endCount = (Integer)map.get("end");
-	    ArrayList<MemberVO> list = dao.getList(startCount, endCount);
+	    ArrayList<MemberVO> list = memberService.getList(startCount, endCount);
 
 	    mv.setViewName("admin/member/member_list");
 	    mv.addObject("list",list);
@@ -228,14 +256,21 @@ public class AdminController {
 	@RequestMapping(value="notice/notice_list.do", method=RequestMethod.GET)
 	public ModelAndView admin_notice_list(String rpage) {
 		ModelAndView mv = new ModelAndView();
-		NoticeDAO dao = new NoticeDAO();	
+		//NoticeDAO dao = new NoticeDAO();	
 		Commons commons = new Commons();
-		HashMap map = commons.getPage(rpage, dao, "notice");
+		HashMap map = commons.getPage(rpage, noticeService, "notice");
 
 		int start = (Integer)map.get("start");
 		int end = (Integer)map.get("end");
-		ArrayList<NoticeVO> list = dao.getList(start, end);
+		ArrayList<Object> olist = noticeService.getList(start, end);
+		ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
 
+		for(Object obj:olist) {
+			NoticeVO vo = (NoticeVO)obj;
+			list.add(vo);
+		}
+
+		
 		mv.setViewName("admin/notice/notice_list");
 		mv.addObject("list",list);
 		mv.addObject("dbCount",map.get("dbCount"));

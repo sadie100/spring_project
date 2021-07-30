@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.mycgv.vo.*" %> 
-<%
+<%@ page import="com.mycgv.vo.*" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%--
  	SessionVO svo = (SessionVO)session.getAttribute("svo");
-	
- %>
+ --%>
  
 <!DOCTYPE html>
 <html> 
@@ -16,20 +16,22 @@
 <header>
 		<div>
 			<nav>
-				<% if(svo != null){ %>
+				<c:choose>
+				<c:when test="${sessionScope.svo!=null }">
 				<ul>
-					<li><a href="#">안녕하세요~ <%=svo.getName() %>님~^^</a></li>
-					<li><a href="http://localhost:9000/mycgv/login/logout.jsp">로그아웃</a></li>
-					<li><a href="http://localhost:9000/mycgv/join/join.jsp">회원가입</a></li>
-					<li><a href="http://localhost:9000/mycgv/mycgv/mycgv.jsp">MyCGV</a></li>
-					<li><a href="http://localhost:9000/mycgv/board/board_list.jsp">게시판</a></li>
-					<li><a href="http://localhost:9000/mycgv/notice/notice_list.jsp">공지사항</a></li>
+					<li><a href="#">안녕하세요~ ${sessionScope.svo.name }님~^^</a></li>
+					<li><a href="http://localhost:9000/mycgv/logout.do">로그아웃</a></li>
+					<li><a href="http://localhost:9000/mycgv/join.do">회원가입</a></li>
+					<li><a href="http://localhost:9000/mycgv/mycgv.do">MyCGV</a></li>
+					<li><a href="http://localhost:9000/mycgv/board_list.do">게시판</a></li>
+					<li><a href="http://localhost:9000/mycgv/notice_list.do">공지사항</a></li>
 					<li><a href="#">VIP라운지</a></li>
-					<% if(svo.getId().equals("admin")){ %>
-					<li><a href="http://localhost:9000/mycgv/admin/admin.jsp">Admin</a></li>
-					<%} %>
+					<c:if test="${sessionScope.svo.id=='admin' }">
+					<li><a href="http://localhost:9000/mycgv/admin.do">Admin</a></li>
+					</c:if>
 				</ul>
-				<% }else{ %>
+				</c:when>
+				<c:otherwise>
 				<ul>
 					<li><a href="http://localhost:9000/mycgv/login.do">로그인</a></li>
 					<li><a href="http://localhost:9000/mycgv/join.do">회원가입</a></li>
@@ -37,9 +39,10 @@
 					<li><a href="http://localhost:9000/mycgv/board_list.do">게시판</a></li>
 					<li><a href="http://localhost:9000/mycgv/notice_list.do">공지사항</a></li>
 					<li><a href="#">VIP라운지</a></li>
-					<li><a href="http://localhost:9000/mycgv/admin.do">Admin</a></li>
+					<!-- <li><a href="http://localhost:9000/mycgv/admin.do">Admin</a></li>-->
 				</ul>
-				<% } %>
+				</c:otherwise>
+				</c:choose>
 			</nav>	
 			<div>
 				<a href="http://localhost:9000/mycgv/index.do"><img src="http://localhost:9000/mycgv/images/h1_cgv.png"></a>

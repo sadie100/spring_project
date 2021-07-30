@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace = "mapper.member">
+	
+	<!-- loginResult -->
+	<select id="login" parameterType="com.mycgv.vo.MemberVO" resultType="com.mycgv.vo.SessionVO">
+		select count(*) result, name from mycgv_member where id=#{id} and pass=#{pass} group by name
+	</select>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="idcheck" parameterType="java.lang.String" resultType="int">
+		select count(*) from mycgv_member where id=#{id}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="join" parameterType="com.mycgv.vo.MemberVO">
+		insert into mycgv_member values(#{id},#{pass},#{name},#{gender},#{email},#{hp},#{hlist},#{intro},sysdate,0)
+	</insert>
+	
+	<!-- 회원 리스트 -->
+	<select id="list" parameterType="map" resultType="com.mycgv.vo.MemberVO">
+		select rno, id, name, hp, gender, mdate, choice  
+		from (SELECT ROWNUM RNO, ID, NAME, HP, GENDER, TO_CHAR(MDATE,'YYYY-MM-DD') MDATE, CHOICE  
+		FROM (SELECT ID, NAME, HP, GENDER, MDATE, CHOICE FROM MYCGV_MEMBER 
+		ORDER BY MDATE DESC)) 
+		where rno between #{start} and #{end}
+	</select>
+	
+	<!-- 회원 상세정보 -->
+	<select id="content" parameterType="java.lang.String" resultType="com.mycgv.vo.MemberVO">
+		select ID, NAME, HP, GENDER, email, TO_CHAR(MDATE,'YYYY-MM-DD') MDATE, hlist, intro 
+				from mycgv_member where id=#{id} 
+	</select>
+	
+	<!-- 전체 로우 수 -->
+	<select id="count" resultType="int">
+		select count(*) from mycgv_member
+	</select>
+</mapper>

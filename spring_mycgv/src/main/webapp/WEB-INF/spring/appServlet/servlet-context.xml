@@ -25,11 +25,49 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	
 	<!-- multipartResolver -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean> 
 	
+	<!-- DAO Object -->
+	<!-- 
+	<beans:bean id="boardDAO" class="com.mycgv.dao.BoardDAO"></beans:bean>
+	<beans:bean id="memberDAO" class="com.mycgv.dao.MemberDAO"></beans:bean>
+	<beans:bean id="noticeDAO" class="com.mycgv.dao.NoticeDAO"></beans:bean>
+	 -->
+	
+	<!-- Service Object -->
+	<beans:bean id="memberService" class="com.myspring.service.MemberServiceImpl"></beans:bean>
+	<beans:bean id="boardService" class="com.myspring.service.BoardServiceImpl2"></beans:bean>
+	<beans:bean id="noticeService" class="com.myspring.service.NoticeServiceImpl2"></beans:bean>
+	
+	<!-- Interceptor Object -->
+	<beans:bean id="authInterceptor" class="com.myspring.interceptor.AuthInterceptor"></beans:bean>
+	
+	<interceptors>		<!-- 언제언제 interceptor를 실행시킬지의 여부 -->
+		<interceptor>
+			<mapping path="/admin*" />
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/mycgv.do" />
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/member/*" />
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/notice/*" />
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	
+	</interceptors>
+
+	
 	<context:component-scan base-package="com.myspring.mycgv" />
+	<context:component-scan base-package="com.mycgv.dao" />
 	
 	
 	

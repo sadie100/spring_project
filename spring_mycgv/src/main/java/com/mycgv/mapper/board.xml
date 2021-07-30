@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace = "mapper.board">
+
+	<!-- 전체 로우 수 -->
+	<select id="count" resultType="int">
+		select count(*) from mycgv_board
+	</select>
+	
+	<!-- bsfile 파일명 가져오기 -->
+	<select id="bsfile" parameterType="java.lang.String" resultType="java.lang.String">
+		select bsfile from mycgv_board where bid=#{bid}
+	</select>
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from mycgv_board where bid=#{bid}
+	</delete>
+	
+	<!-- 수정 : 기존 파일 유지 -->
+	<update id="updatenofile" parameterType="com.mycgv.vo.BoardVO">
+		update mycgv_board set btitle=#{btitle}, bcontent = #{bcontent} where bid=#{bid}
+	</update>
+
+	<!-- 수정 : 새로운 파일 -->
+	<update id="updatefile" parameterType="com.mycgv.vo.BoardVO">
+		update mycgv_board set btitle=#{btitle}, bcontent = #{bcontent}, bfile=#{bfile}, bsfile=#{bsfile} where bid=#{bid}
+	</update>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="updatehit" parameterType="java.lang.String">
+		update mycgv_board set bhit= bhit+1 where bid=#{bid}
+	</update>
+	
+	<!-- 상세 정보 -->
+	<select id="content" parameterType="java.lang.String" resultType="com.mycgv.vo.BoardVO">
+		select bid, btitle, bcontent, bhit, to_char(bdate, 'yyyy-mm-dd') bdate, bfile, bsfile 
+		 from mycgv_board where bid=#{bid}
+	</select>
+	
+	<!-- 전체리스트 -->
+	<select id="list" parameterType="map" resultType="com.mycgv.vo.BoardVO">
+		select rno, bid, btitle, bhit, bdate 
+			from ( select rownum rno, bid, btitle, bhit, to_char(bdate, 'yyyy-mm-dd') bdate  
+				from (select bid, btitle, bhit, bdate from mycgv_board 
+					order by bdate desc)) 
+				    where rno between #{start} and #{end}
+	</select>
+
+	<!-- 글쓰기 -->
+	<insert id="insert" parameterType="com.mycgv.vo.BoardVO">
+		<choose>
+			<when test="bfile != null">
+				insert into mycgv_board values('b_'||sequ_mycgv_board.nextval,#{btitle},#{bcontent},#{bfile},
+				#{bsfile},0,sysdate)
+			</when>
+			<otherwise>
+				insert into mycgv_board values('b_'||sequ_mycgv_board.nextval,#{btitle},#{bcontent},null,
+				null,0,sysdate)
+			</otherwise>
+		</choose>
+	</insert>
+</mapper>

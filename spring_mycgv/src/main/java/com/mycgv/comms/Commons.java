@@ -2,9 +2,8 @@ package com.mycgv.comms;
 
 import java.util.HashMap;
 
-import com.mycgv.dao.BoardDAO;
-import com.mycgv.dao.MemberDAO;
-import com.mycgv.dao.NoticeDAO;
+import com.myspring.service.BoardNoticeService;
+import com.myspring.service.MemberService;
 
 public class Commons {
 	//페이징 처리 메소드 - startCount, endCount : HashMap map = commons.getPage(rpage, dao);
@@ -19,14 +18,14 @@ public class Commons {
 		int pageCount = 1;	//전체 페이지 수
 		int dbCount = 0;
 		if(name.equals("board")) {
-			BoardDAO dao = (BoardDAO)obj;
-			dbCount = dao.execTotalCount();	//DB에서 가져온 전체 행수 : 5 
+			BoardNoticeService boardService = (BoardNoticeService)obj;
+			dbCount = boardService.execTotalCount();	//DB에서 가져온 전체 행수 : 5 
 		}else if(name.equals("member")) {
-			MemberDAO dao = (MemberDAO)obj;
-			dbCount = dao.execTotalCount();	//DB에서 가져온 전체 행수 : 5 
+			MemberService memberService = (MemberService)obj;
+			dbCount = memberService.execTotalCount();	//DB에서 가져온 전체 행수 : 5 
 		}else if(name.equals("notice")) {
-			NoticeDAO dao = (NoticeDAO)obj;
-			dbCount = dao.execTotalCount();	//DB에서 가져온 전체 행수 : 5 
+			BoardNoticeService noticeService = (BoardNoticeService)obj;
+			dbCount = noticeService.execTotalCount();	//DB에서 가져온 전체 행수 : 5 
 		}
 
 		//총 페이지 수 계산. pagecount : 현재 페이지
